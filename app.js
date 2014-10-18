@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var path = require('path');
 
 app.get('/', function(req, res){
-  path.join(__dirname, '../search-bar', 'index.html')
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 http.listen(3000, function(){
