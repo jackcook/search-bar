@@ -14,3 +14,14 @@ http.listen(3000, function(){
     var locations = store.get_locations('modem');
   }
 });
+
+function store(name, lat, lon) {
+  this.name = name;
+  this.lat = lat;
+  this.lon = lon;
+}
+
+function product(name, stores) {
+  this.name = name;
+  this.stores = stores;
+}
