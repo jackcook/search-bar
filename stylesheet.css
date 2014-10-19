@@ -1,22 +1,41 @@
-@font-face {
-	font-family: quiglet;
-	src: url("search-bar/quiglet free.otf") format("opentype");
+body {
+	font-family: 'Sintony', sans-serif;
+
 }
+
 
 h1 {
 	text-align: center;
-	font-family: 'Quiglet', sans-serif;
+	
 }
 
-
 input[type=text] {
-	width: 300px; 
-	background-color: #d3d3d3; 
-	border: line; 
-	height: 35px; 
-	padding-left: 5px; 
-	padding-right: 5px
+	border: 1px solid #d9d9d9;
+	width: 275px;
+	height: 35px;
+	margin: 1.15em auto 0.5em;
+	display: inline-block;
 
+	font-size: 20px;
+	text-align: center;
+}
+
+input[type=text]:focus {
+	outline: 0;
+}
+
+input[type=text]:hover {
+	border: 1px solid #b3b3b3;
+}
+
+input[type=submit] {
+	border: 1px solid #dadada;
+	background: #f2f2f2;
+	width: 80px;
+	height: 30px;
+	font-size: 14px;
+	display: block;
+	margin: 6px auto;
 }
 
 form {
