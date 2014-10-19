@@ -26,7 +26,7 @@ socket.on('stores', function(stores) {
     var mapOptions = {
       center: { lat: lat, lng: lng },
       zoom: 12,
-      styles: blue-gray
+      styles: blue_gray
     };
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -56,7 +56,7 @@ function getUrlVars() {
   return vars;
 }
 
-var blue-gray = [{
+var blue_gray = [{
   "featureType": "water",
   "stylers": [{
     "visibility": "on"
