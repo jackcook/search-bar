@@ -25,7 +25,8 @@ module.exports = {
           
 
           for (var i = 0; i < result.length; i++) {
-            http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[0].StoreId + "&ItemName=" + product, function(itemRes) {
+
+            http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
               var itemTextdata = "";
               itemRes.on("data", function (chunk) {
                 itemTextdata += chunk;
@@ -33,10 +34,8 @@ module.exports = {
               itemRes.on("end", function() {
                 xml2js.parseString(itemTextdata, function (err, productData) {
                   productData = productData.ArrayOfProduct.Product;
-                                  //console.log("RAW SWAGGER ITEM STRING ====================================================================");
                   for (var j = 0; j < productData.length; j++) {
-                    console.log(productData[i].Itemname);  
-
+                    console.log(productData[j].Itemname);
                   }    
                 });
               });
