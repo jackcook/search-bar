@@ -1,9 +1,12 @@
 var app = require('express')();
+var express = require('express');
 var fs = require('fs');
 var http = require('http').Server(app);
 var path = require('path');
 
-app.get('/', function(req, res){
+app.use("/styles", express.static(__dirname));
+
+app.get("/", function(req, res){
   res.sendFile(path.join(__dirname, '../search-bar', 'index.html'));
 });
 

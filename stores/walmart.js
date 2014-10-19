@@ -22,7 +22,15 @@ module.exports = {
                 producttextdata += chunk;
               });
               res.on("end", function() {
-
+                http.get("http://www.walmart.com/ip/" + iid, function(res) {
+                  pagetextdata = "";
+                  res.on("data", function(chunk) {
+                    pagetextdata += chunk;
+                  });
+                  res.on("end", function() {
+                    console.log(pagetextdata);
+                  });
+                });
               });
               /*res.on("end", function() {
                 var productdata = JSON.parse(producttextdata);
