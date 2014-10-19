@@ -27,7 +27,6 @@ io.on('connection', function(socket) {
           allproducts.push(products[j]);
         }
 
-        console.log(allproducts.length);
         io.emit('results', products);
       });
     }
@@ -37,24 +36,12 @@ io.on('connection', function(socket) {
       var product = allproducts[i];
       if (String(product.name) == String(name)) {
         io.emit('stores', product.stores);
-        console.log("found stores");
         break;
       }
     }
   });
 });
 
-http.listen(3000, function() {
-  console.log("listening on *:3000");
+http.listen(80, function() {
+  console.log("listening on *:80");
 });
-
-function store(name, lat, lon) {
-  this.name = name;
-  this.lat = lat;
-  this.lon = lon;
-}
-
-function product(name, stores) {
-  this.name = name;
-  this.stores = stores;
-}
