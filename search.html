@@ -16,7 +16,7 @@
     //background: url(./res/img/table.jpg) no-repeat center center fixed;
     </script>
     <div id="boxen">
-      <div class='box'><div id='map-canvas' style="width: 100%; height: 35%;"></div></div>
+      <div class='box map'><div id='map-canvas' style="width: 100%; height: 35%;"></div></div>
       <div class="box">
         <ul id="products">
 
@@ -63,6 +63,8 @@
 
     function emit_product(name) {
       socket.emit('product', name);
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $(".map").css("display", "block");
     }
 
     function getUrlVars() {

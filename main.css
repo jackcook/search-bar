@@ -67,6 +67,10 @@ form {
 	border-radius: 8px;
 }
 
+.map {
+	display: none;
+}
+
 #products {
 	list-style-type: none;
 	padding: 0;
