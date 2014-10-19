@@ -12,6 +12,10 @@ module.exports = {
         var products = [];
         var received = 0;
         for (var i = 0; i < 10; i++) {
+          if (namedata.products.length == 0) {
+            return;
+          }
+
           (function(i) {
             var sku = namedata.products[i].sku;
             var key = i < 4 ? "kpxpjpgkvyke9r8aub9urpna" : "z8vdb8gcwte9zxv6wyr2a6eh";
