@@ -50,7 +50,6 @@
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         for (var i = 0; i < stores.length; i++) {
-          console.log('lat: ' + stores[i].lat + ', lng: ' + stores[i].lng);
           var marker = new google.maps.Marker({
             position: { lat: stores[i].lat, lng: stores[i].lng },
             map: map,

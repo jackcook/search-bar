@@ -41,7 +41,7 @@ module.exports = {
                   var store = {};
 
                   try {
-                    store = {"name": "Best Buy", "lat": stores[i].lat, "lng": stores[i].lng};
+                    store = {"name": "Best Buy", "lat": stores[j].lat, "lng": stores[j].lng};
                   } catch (err) {
                     return;
                   }
