@@ -24,47 +24,51 @@ module.exports = {
           //console.log(result[0].StoreId);
           var products = [];
           for (var i = 0; i < result.length; i++) {
-            var hurr = storeList[i].Storename;
-            var durr = storeList;
+            (function(i){
+              var hurr = storeList[i].Storename;
+              var durr = storeList;
+
+              //console.log(i);
+              //console.dir(durr[i]);
+
+              var address = '';
+              address += durr[i].Address.toString() + " " + durr[i].City.toString() + " " + durr[i].State.toString() + " " + durr[i].Zip.toString();
+              var place = i;
+              geocoder.geocode(address, function(err, rezz) {
+                //console.log(address);              
+                var latitude = rezz[0].latitude;
+                var longitude = rezz[0].longitude;
+                console.log(latitude + " " + longitude);
 
 
-            //console.dir(durr);
-
-            var address = '';
-            address += durr[0].Address.toString() + " " + durr[0].City.toString() + " " + durr[0].State.toString() + " " + durr[0].Zip.toString();
-            //console.log(address);
-
-            geocoder.geocode(address, function(err, res) {
-            console.log(res[0]);
-            });
-
-
-
-
-
-            http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
-              var itemTextdata = "";
-              itemRes.on("data", function (chunk) {
-                itemTextdata += chunk;
-              });
-
-
-              itemRes.on("end", function() {
-                xml2js.parseString(itemTextdata, function (err, productData) {
-                  productData = productData.ArrayOfProduct.Product;
-                  var tempProduct = {};
-                  tempProduct.stores = hurr;
-                  for (var j = 0; j < productData.length; j++) {
-                    //console.log(productData[j].Itemname.toString());
-                    var product = {};
-                    product.name = productData[j].Itemname.toString();
-                    product.stores = tempProduct.stores;
-                    //console.log("product: "+ product.name + " stores: " + product.stores);
-                  }
+              http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
+                var itemTextdata = "";
+                itemRes.on("data", function (chunk) {
+                  itemTextdata += chunk;
                 });
+
+
+                itemRes.on("end", function() {
+                  xml2js.parseString(itemTextdata, function (err, productData) {
+                    productData = productData.ArrayOfProduct.Product;
+                    var tempProduct = {};
+                    tempProduct.stores = hurr;
+                    for (var j = 0; j < productData.length; j++) {
+                      //console.log(productData[j].Itemname.toString());
+                      var product = {};
+                      product.name = productData[j].Itemname;
+                      product.stores = tempProduct.stores;
+                      product.lat = latitude;
+                      product.long = longitude;
+                      console.log("product: "+ product.name + " stores: " + product.stores + " lat: " + product.lat + " long: "+ product.long);
+                    }
+                  });
+                });
+              }); //http.get items ends here
               });
-            });
-          }
+
+            })(i);
+          }//for loop ends here
         });
       });
     });
