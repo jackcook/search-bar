@@ -30,7 +30,10 @@ module.exports = {
               res.on("end", function() {
                 var productdata = JSON.parse(producttextdata);
                 var product = {};
-                product.name = productdata.products[0].name.toString().substring(0,70);
+                product.name = productdata.products[0].name.toString();
+                if (product.name.length > 70) {
+                  product.name = product.name.substring(0,70) + "...";
+                }
                 product.image = "http://images.bestbuy.com/BestBuy_US/images/products/" + String(sku).substring(0, 4) + "/" + sku + "_sb.jpg";
                 product.stores = [];
                 var stores = productdata.products[0].stores;

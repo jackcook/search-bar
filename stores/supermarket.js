@@ -51,10 +51,13 @@ module.exports = {
                       tempProduct.lng = longitude;
                       for (var j = 0; j < productData.length; j++) {
                         var product = {};
-                        product.name = productData[j].Itemname.toString().substring(0,70);
+                        product.name = productData[j].Itemname.toString();
 
                         if (String(product.name) == "NOITEM") {
                           return;
+                        }
+                        else if (product.name.length > 70) {
+                          product.name = product.name.substring(0,70) + "...";
                         }
 
                         product.image = productData[j].ItemImage.toString();
