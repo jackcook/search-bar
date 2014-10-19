@@ -61,4 +61,9 @@ form {
 	border-radius: 8px;
 	width: 960px;
 	margin: 72px auto;
+	padding: 16px;
+}
+
+.box div {
+	border-radius: 8px;
 }

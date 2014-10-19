@@ -7,7 +7,7 @@ var path = require('path');
 
 var allproducts = [];
 
-app.use("/styles", express.static(__dirname));
+app.use("/", express.static(__dirname));
 
 app.get("/", function(req, res){
   res.sendFile(path.join(__dirname, '../search-bar', 'index.html'));
