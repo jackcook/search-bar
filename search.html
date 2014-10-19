@@ -3,7 +3,10 @@
 
   </head>
   <body>
+    <ul id="products">
 
+    </ul>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
     var socket = io();
@@ -12,6 +15,12 @@
     var zip = getUrlVars()["zip"];
 
     socket.emit("search", q, zip);
+
+    socket.on('results', function(products) {
+      for (var i = 0; i < products.length; i++) {
+        $('#products').append("<li>" + products[i].name + "</li>");
+      }
+    });
 
     function getUrlVars() {
       var vars = {};

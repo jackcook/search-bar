@@ -18,21 +18,32 @@ app.get("/search.html", function(req, res) {
 });
 
 io.on('connection', function(socket) {
+  allproducts = [];
   socket.on('search', function(q, zip) {
-    console.log(zip);
+    var stores = fs.readdirSync('stores');
+    for (var i = 0; i < stores.length; i++) {
+      var store = require(path.join(__dirname, 'stores', stores[i]));
+      if (stores[i].indexOf('bestbuy.js') > -1) {
+        store.get_locations(q, parseInt(zip), function(products) {
+          for (var j = 0; j < products.length; j++) {
+            allproducts.push(products[j]);
+
+            if (i == 2 && j == products.length - 1) {
+              io.emit('results', allproducts);
+            }
+          }
+        });
+      }
+    }
   });
 });
 
+function all_products() {
+  return allproducts;
+}
+
 http.listen(3000, function() {
-  var stores = fs.readdirSync('stores');
-  for (var i = 0; i < stores.length; i++) {
-    var store = require(path.join(__dirname, 'stores', stores[i]));
-    store.get_locations('apple', 10003, function(products) {
-      for (var j = 0; j < products.length; j++) {
-        allproducts.push(products[j]);
-      }
-    });
-  }
+  console.log("listening on *:3000");
 });
 
 function store(name, lat, lon) {
