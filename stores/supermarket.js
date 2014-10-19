@@ -9,39 +9,42 @@ module.exports = {
       var storetextdata = "";
       res.on("data", function (chunk) {
         storetextdata += chunk;
-        //console.log("RAW SWAGGER STRING ====================================================================");
-        //console.log(storetextdata);
       });
       res.on("end", function() {
         //XML parse
-        xml2js.parseString(storetextdata, function (err, result) {
-          //console.log("\n\n\nJS OBJECT SWAGGER ===================================================================");
-          //console.log(result);
-          //console.log("\n\n\nJS STORES ARRAY SWAGGER ===================================================================");          
+        xml2js.parseString(storetextdata, function (err, result) {        
           result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
-          //console.dir(result);
+          var storeList = result;
           //console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
           //console.log(result[0].StoreId);
-          
-
+          var products = [];
           for (var i = 0; i < result.length; i++) {
-
+            var hurr = storeList[i].Storename;
+            var durr = storeList;
+            console.dir(durr);
             http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
               var itemTextdata = "";
               itemRes.on("data", function (chunk) {
                 itemTextdata += chunk;
               });
+
+
               itemRes.on("end", function() {
                 xml2js.parseString(itemTextdata, function (err, productData) {
                   productData = productData.ArrayOfProduct.Product;
+                  var tempProduct = {};
+                  tempProduct.stores = hurr;
                   for (var j = 0; j < productData.length; j++) {
-                    console.log(productData[j].Itemname);
-                  }    
+                    //console.log(productData[j].Itemname.toString());
+                    var product = {};
+                    product.name = productData[j].Itemname.toString();
+                    product.stores = tempProduct.stores;
+                    //console.log("product: "+ product.name + " stores: " + product.stores);
+                  }
                 });
               });
             });
           }
-
         });
       });
     });
