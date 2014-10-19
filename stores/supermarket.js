@@ -51,7 +51,7 @@ module.exports = {
                       tempProduct.lng = longitude;
                       for (var j = 0; j < productData.length; j++) {
                         var product = {};
-                        product.name = productData[j].Itemname[0];
+                        product.name = productData[j].Itemname.toString().substring(0,70);
 
                         if (String(product.name) == "NOITEM") {
                           return;
