@@ -52,6 +52,11 @@ module.exports = {
                       for (var j = 0; j < productData.length; j++) {
                         var product = {};
                         product.name = productData[j].Itemname;
+
+                        if (String(product.name) == "NOITEM") {
+                          return;
+                        }
+
                         product.image = productData[j].ItemImage.toString();
                         product.stores = [];
                         product.stores.push(tempProduct);
