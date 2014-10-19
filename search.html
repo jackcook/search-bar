@@ -12,7 +12,8 @@
     <script>
     var t = new Trianglify();
     var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
-    document.body.setAttribute('style', 'background-image: '+pattern.dataUrl);
+    document.body.setAttribute('style', 'background: ' + pattern.dataUrl + 'no-repeat center center fixed');
+    //background: url(./res/img/table.jpg) no-repeat center center fixed;
     </script>
     <div id="boxen">
       <div class='box'><div id='map-canvas' style="width: 100%; height: 100%;"></div></div>
