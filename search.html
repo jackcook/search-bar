@@ -1,0 +1,21 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+
+    <script type="text/javascript">
+    var zip = getUrlVars()["zip"];
+    console.log(zip);
+
+    function getUrlVars() {
+      var vars = {};
+      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+      function(m,key,value) {
+        vars[key] = value;
+      });
+      return vars;
+    }
+    </script>
+  </body>
+</html>
