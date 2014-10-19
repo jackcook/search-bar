@@ -52,6 +52,7 @@ module.exports = {
                       for (var j = 0; j < productData.length; j++) {
                         var product = {};
                         product.name = productData[j].Itemname;
+                        product.image = productData[j].ItemImage.toString();
                         product.stores = [];
                         product.stores.push(tempProduct);
                         product.lat = latitude;
