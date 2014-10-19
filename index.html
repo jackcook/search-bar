@@ -1,18 +1,29 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="/styles/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <link href='http://fonts.googleapis.com/css?family=Cherry+Swash' rel='stylesheet' type='text/css'>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://qrohlf.com/trianglify/trianglify.js"></script>
     <link rel="stylesheet" href="res/css/main.css">
     <title>seekbar</title>
   </head>
   <body>
+    <script>
+    var t = new Trianglify();
+    var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
+    document.body.setAttribute('style', 'background-image: '+pattern.dataUrl);
+    </script>
+
+
     <header class="swagtitle"> 
       <h1>seekbar</h1>
     </header>
-    <form id="inputsearch" method="get" action="search.html" name="Search">
-      <input type="text" class="searchbox" name="q" placeholder="Product">
-      <input type="text" class="searchbox" name="zip" placeholder="Zipcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="5">
-      <input type="submit" value="Search" class="submit">
-    </form>
+
+      <form id="inputsearch" method="get" action="search.html" name="Search">
+        <input type="text" class="searchbox" name="q" placeholder="Product">
+        <input type="text" class="searchbox" name="zip" placeholder="Zipcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="5">
+        <input type="submit" value="Search" class="submit">
+      </form>
   </body>
 </html>
