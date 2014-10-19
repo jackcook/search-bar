@@ -57,7 +57,18 @@ module.exports = {
                         product.stores.push(tempProduct);
                         product.lat = latitude;
                         product.lng = longitude;
-                        products.push(product);
+
+                        var contains = false;
+                        for (var k = 0; k < products.length; k++) {
+                          var prod = products[k];
+                          if (prod.name == product.name) {
+                            contains = true;
+                          }
+                        }
+
+                        if (!contains) {
+                          products.push(product);
+                        }
 
                         if (i == result.length - 1 && j == productData.length - 1) {
                           callback(products);
