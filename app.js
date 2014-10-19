@@ -31,7 +31,6 @@ io.on('connection', function(socket) {
       });
     }
   });
-  io.emit('stores', []);
   socket.on('product', function(name) {
     for (var i = 0; i < allproducts.length; i++) {
       var product = allproducts[i];

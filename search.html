@@ -27,9 +27,6 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
-    // when we implement the button that chooses a product,
-    // socket.emit('product', name);
-
     var socket = io();
 
     var q = getUrlVars()["q"];
@@ -39,20 +36,34 @@
 
     socket.on('results', function(products) {
       for (var i = 0; i < products.length; i++) {
-        $('#products').append("<li class='product'><div style='max-height:76'><img src='" + products[i].image + "'><p>" + products[i].name + "</p></div></li>");
+        $('#products').append("<li class='product'><div onclick='emit_product(\"" + products[i].name + "\");'><img src='" + products[i].image + "'><p>" + products[i].name + "</p></div></li>");
       }
     });
 
     socket.on('stores', function(stores) {
+      console.log(stores.length);
       function initialize() {
         var mapOptions = {
-          center: { lat: 40.728796191042, lng: -73.99595872784677 },
+          center: { lat: stores[0].lat, lng: stores[0].lng },
           zoom: 16
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        for (var i = 0; i < stores.length; i++) {
+          console.log('lat: ' + stores[i].lat + ', lng: ' + stores[i].lng);
+          var marker = new google.maps.Marker({
+            position: { lat: stores[i].lat, lng: stores[i].lng },
+            map: map,
+            title: String(stores[i].name)
+          });
+        }
       }
       initialize();
     });
+
+    function emit_product(name) {
+      socket.emit('product', name);
+    }
 
     function getUrlVars() {
       var vars = {};

@@ -77,6 +77,10 @@ form {
 	margin: 15px 0;
 }
 
+.product:hover div {
+	cursor: pointer;
+}
+
 .product:first-of-type {
 	margin: 0 0 15px;
 }
