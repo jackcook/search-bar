@@ -1,11 +1,12 @@
-@font-face {
-	font-family: quiglet;
-	src: url("search-bar/quiglet free.otf") format("opentype");
+body {
+	font-family: 'Sintony', sans-serif;
+
 }
+
 
 h1 {
 	text-align: center;
-	font-family: 'Quiglet', sans-serif;
+	
 }
 
 
