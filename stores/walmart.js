@@ -14,7 +14,7 @@ module.exports = {
         for (var i = 0; i < 10; i++) {
           (function(i) {
             var iid = namedata.items[i].itemId;
-            console.log("walmart" + iid);
+            //console.log("walmart" + iid);
             var key = i < 4 ? "rr6nyujv7h4y5wvgr5abfcyx" : "xxx";
             http.get("http://api.walmartlabs.com/v1/items/" + iid + "?apiKey=" + key, function(res) {
               var producttextdata = "";
@@ -28,7 +28,7 @@ module.exports = {
                     pagetextdata += chunk;
                   });
                   res.on("end", function() {
-                    console.log(pagetextdata);
+                    //console.log(pagetextdata);
                   });
                 });
               });
