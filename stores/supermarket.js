@@ -20,10 +20,14 @@ module.exports = {
 
         //XML parse
         xml2js.parseString(storetextdata, function (err, result) {        
+          console.log(result);
           result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
           var storeList = result;
           //console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
-          //console.log(result[0].StoreId);
+          if (result == undefined) {
+            return;
+          }
+
           for (var i = 0; i < result.length; i++) {
             (function(i){
               var hurr = storeList[i].Storename;
