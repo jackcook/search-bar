@@ -5,8 +5,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
-var allproducts = [];
-
 app.use("/styles", express.static(__dirname));
 
 app.get("/", function(req, res){
@@ -24,13 +22,7 @@ io.on('connection', function(socket) {
     for (var i = 0; i < stores.length; i++) {
       var store = require(path.join(__dirname, 'stores', stores[i]));
       store.get_locations(q, parseInt(zip), function(products) {
-        for (var j = 0; j < products.length; j++) {
-          allproducts.push(products[j]);
-
-          if (i == 2 && j == products.length - 1) {
-            io.emit('results', allproducts);
-          }
-        }
+        io.emit('results', products);
       });
     }
   });
