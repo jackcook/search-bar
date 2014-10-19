@@ -4,9 +4,14 @@
   </head>
   <body>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
+    var socket = io();
+
+    var q = getUrlVars()["q"];
     var zip = getUrlVars()["zip"];
-    console.log(zip);
+
+    socket.emit("search", q, zip);
 
     function getUrlVars() {
       var vars = {};
