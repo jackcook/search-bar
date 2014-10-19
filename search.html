@@ -13,11 +13,11 @@
     var t = new Trianglify();
     var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
     document.body.setAttribute('style', 'background: ' + pattern.dataUrl + 'no-repeat center center fixed');
-    //background: url(./res/img/table.jpg) no-repeat center center fixed;
     </script>
     <div id="boxen">
       <div class='box map'><div id='map-canvas' style="width: 100%; height: 35%;"></div></div>
       <div class="box">
+        <h1 id="loading">Loading...</h1>
         <ul id="products">
 
         </ul>
@@ -37,11 +37,11 @@
     socket.on('results', function(products) {
       for (var i = 0; i < products.length; i++) {
         $('#products').append("<li class='product'><div onclick='emit_product(\"" + products[i].name + "\");'><img src='" + products[i].image + "'><p>" + products[i].name + "</p></div></li>");
+        $("#loading").css("display", "none");
       }
     });
 
     socket.on('stores', function(stores) {
-      console.log(stores.length);
       function initialize() {
         var mapOptions = {
           center: { lat: stores[0].lat, lng: stores[0].lng },

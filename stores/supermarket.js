@@ -59,7 +59,7 @@ module.exports = {
                         else if (product.name.length > 70) {
                           product.name = product.name.substring(0,70) + "...";
                         }
-
+                        
                         product.image = productData[j].ItemImage.toString();
                         product.stores = [];
                         product.stores.push(tempProduct);

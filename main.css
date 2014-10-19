@@ -23,6 +23,11 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 30px;
 }
 
+#loading {
+	color: #fff;
+	font-size: 48px;
+}
+
 input[type=text] {
 	border: 1px solid #d9d9d9;
 	width: 275px;
