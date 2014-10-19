@@ -9,6 +9,12 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
+    // when we implement the button that chooses a product,
+    // socket.emit('product', name);
+    // socket.on('stores', function(stores) {
+    //
+    // });
+
     var socket = io();
 
     var q = getUrlVars()["q"];
