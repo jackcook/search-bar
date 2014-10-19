@@ -16,7 +16,25 @@ module.exports = {
         //XML parse
         xml2js.parseString(storetextdata, function (err, result) {
           console.log("\n\n\nJS OBJECT SWAGGER ===================================================================");
+          console.log(result);
+          console.log("\n\n\nJS STORES ARRAY SWAGGER ===================================================================");          
+          result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
           console.dir(result);
+          console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
+          console.log(result[0].StoreId);
+          
+
+          for (var i = 0; i < result.length; i++) {
+            http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[0].StoreId + "&ItemName=" + product, function(itemRes) {
+              var itemListdata = "";
+              itemRes.on("data", function (chunk) {
+                itemListdata += chunk;
+                console.log("RAW SWAGGER ITEM STRING ====================================================================");
+                console.log(itemListdata);
+              });
+            });
+          }
+
         });
       });
     });
