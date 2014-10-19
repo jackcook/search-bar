@@ -1,4 +1,3 @@
-var app = require("../app.js");
 var http = require("http");
 
 module.exports = {
