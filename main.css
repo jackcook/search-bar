@@ -4,8 +4,8 @@ body {
 }
 
 
-h1 {
-	text-align: center;	
+h1, h2, h3, h4, h5, h6 {
+	text-align: center;
 }
 
 .swagtitle h1 {
@@ -13,7 +13,18 @@ h1 {
 	font-weight: normal;
 	font-size: 120px;
 	padding-top: 2em;
+	margin-bottom: 0em;
+	color: #34495e;
 }
+
+.swagtitle h2 {
+	font-family: 'Cherry Swash', cursive;
+	color: #34495e;
+	font-weight: normal;
+	font-size: 30px;
+}
+
+
 
 input[type=text] {
 	border: 1px solid #d9d9d9;
@@ -35,13 +46,9 @@ input[type=text]:hover {
 }
 
 input[type=submit] {
-	border: 1px solid #dadada;
-	background: #f2f2f2;
-	width: 80px;
-	height: 30px;
 	font-size: 14px;
 	display: block;
-	margin: 6px auto;
+	margin: 3em auto;
 }
 
 form {

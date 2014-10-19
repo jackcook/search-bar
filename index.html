@@ -4,7 +4,10 @@
     <link href='http://fonts.googleapis.com/css?family=Cherry+Swash' rel='stylesheet' type='text/css'>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://qrohlf.com/trianglify/trianglify.js"></script>
-    <link rel="stylesheet" href="res/css/main.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/forms-nr-min.css">
+    <link rel="stylesheet" href="buttons.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
     <title>seekbar</title>
   </head>
   <body>
@@ -17,12 +20,13 @@
 
     <header class="swagtitle">
       <h1>seekbar</h1>
+      <h2>Find what you're looking to buy</h2>
     </header>
 
-      <form id="inputsearch" method="get" action="search.html" name="Search">
+      <form class="pure-form" id="inputsearch" method="get" action="search.html" name="Search">
         <input type="text" class="searchbox" name="q" placeholder="Product">
         <input type="text" class="searchbox" name="zip" placeholder="Zipcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="5">
-        <input type="submit" value="Search" class="submit">
+        <input type="submit" value="Search" class="button button-border-primary button-rounded">
       </form>
   </body>
 </html>
