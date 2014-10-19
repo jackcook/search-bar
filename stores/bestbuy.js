@@ -12,14 +12,16 @@ module.exports = {
         var products = [];
         var received = 0;
         for (var i = 0; i < 10; i++) {
-          if (namedata.products.length == 0) {
-            return;
-          }
-
           (function(i) {
-            var sku = namedata.products[i].sku;
+            var sku = "";
+
+            try {
+              sku = namedata.products[i].sku;
+            } catch (err) {
+              return;
+            }
+
             var key = i < 4 ? "kpxpjpgkvyke9r8aub9urpna" : "z8vdb8gcwte9zxv6wyr2a6eh";
-            console.log("http://api.remix.bestbuy.com/v1/products(sku=" + sku + ")+stores?show=name,sku,stores&format=json&apiKey=" + key);
             http.get("http://api.remix.bestbuy.com/v1/products(sku=" + sku + ")+stores?show=name,sku,stores&format=json&apiKey=" + key, function(res) {
               var producttextdata = "";
               res.on("data", function(chunk) {
@@ -33,7 +35,14 @@ module.exports = {
                 product.stores = [];
                 var stores = productdata.products[0].stores;
                 for (var j = 0; j < stores.length; j++) {
-                  var store = {"name": "Best Buy", "lat": stores[i].lat, "lng": stores[i].lng};
+                  var store = {};
+
+                  try {
+                    store = {"name": "Best Buy", "lat": stores[i].lat, "lng": stores[i].lng};
+                  } catch (err) {
+                    return;
+                  }
+
                   product.stores.push(store);
                 }
                 products.push(product);

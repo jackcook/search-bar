@@ -52,12 +52,28 @@ module.exports = {
                       for (var j = 0; j < productData.length; j++) {
                         var product = {};
                         product.name = productData[j].Itemname;
+
+                        if (String(product.name) == "NOITEM") {
+                          return;
+                        }
+
                         product.image = productData[j].ItemImage.toString();
                         product.stores = [];
                         product.stores.push(tempProduct);
                         product.lat = latitude;
                         product.lng = longitude;
-                        products.push(product);
+
+                        var contains = false;
+                        for (var k = 0; k < products.length; k++) {
+                          var prod = products[k];
+                          if (String(prod.name) == String(product.name)) {
+                            contains = true;
+                          }
+                        }
+
+                        if (!contains) {
+                          products.push(product);
+                        }
 
                         if (i == result.length - 1 && j == productData.length - 1) {
                           callback(products);
