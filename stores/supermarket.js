@@ -16,13 +16,14 @@ module.exports = {
         storetextdata += chunk;
       });
       res.on("end", function() {
+        var products = [];
+
         //XML parse
         xml2js.parseString(storetextdata, function (err, result) {        
           result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
           var storeList = result;
           //console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
           //console.log(result[0].StoreId);
-          var products = [];
           for (var i = 0; i < result.length; i++) {
             (function(i){
               var hurr = storeList[i].Storename;
@@ -52,23 +53,33 @@ module.exports = {
                   xml2js.parseString(itemTextdata, function (err, productData) {
                     productData = productData.ArrayOfProduct.Product;
                     var tempProduct = {};
-                    tempProduct.stores = hurr;
+                    tempProduct.name = hurr;
+                    tempProduct.lat = latitude;
+                    tempProduct.long = longitude;
                     for (var j = 0; j < productData.length; j++) {
                       //console.log(productData[j].Itemname.toString());
                       var product = {};
                       product.name = productData[j].Itemname;
-                      product.stores = tempProduct.stores;
+                      product.stores = [];
+                      product.stores.push(tempProduct);
+
+
+
                       product.lat = latitude;
                       product.long = longitude;
-                      console.log("product: "+ product.name + " stores: " + product.stores + " lat: " + product.lat + " long: "+ product.long);
+                      console.log("product: "+ product.name + " stores: " + product.stores[0].name.toString() + " lat: " + product.stores[0].lat + " long: "+ product.stores[0].long);
+                      products.push(product);
+                                  //console.log(products);
+
                     }
+
                   });
                 });
               }); //http.get items ends here
               });
-
             })(i);
           }//for loop ends here
+
         });
       });
     });
@@ -77,17 +88,6 @@ module.exports = {
 
 
 
-
-
-
-
-
-
-var store = {
-        "name": "Best Buy",
-        "lat": "gasrgatwertga",
-        "long": "garfweafawefae"
-};
 
 //TODO
 //  look at all stores in a zip code:                                         http://www.SupermarketAPI.com/api.asmx/StoresByZip?APIKEY=APIKEY&ZipCode=95130
