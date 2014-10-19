@@ -11,7 +11,9 @@ http.listen(3000, function(){
   var stores = fs.readdirSync('stores');
   for (var i = 0; i < stores.length; i++) {
     var store = require(path.join(__dirname, 'stores', stores[i]));
-    var locations = store.get_locations('apple', 10003);
+    store.get_locations('apple', 10003, function(products) {
+      console.log(products.length);
+    });
   }
 });
 
