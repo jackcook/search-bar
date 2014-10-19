@@ -15,7 +15,7 @@ module.exports = {
           (function(i) {
             var sku = namedata.products[i].sku;
             var key = i < 4 ? "kpxpjpgkvyke9r8aub9urpna" : "z8vdb8gcwte9zxv6wyr2a6eh";
-            http.get("http://api.remix.bestbuy.com/v1/products(sku=" + sku + ")+stores?show=name,sku,stores&format=json&apiKey=" + key, function(res) {
+            http.get("http://api.remix.bestbuy.com/v1/products(sku=" + sku + ")+stores?show=name,sku,stores,customerReviewCount&format=json&sort=customerReviewCount.desc&apiKey=" + key, function(res) {
               var producttextdata = "";
               res.on("data", function(chunk) {
                 producttextdata += chunk;
