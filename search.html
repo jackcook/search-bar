@@ -18,7 +18,7 @@
 
     socket.on('results', function(products) {
       for (var i = 0; i < products.length; i++) {
-        $('#products').append("<li>" + products[i].name + "</li>");
+        $('#products').append("<li>" + products[i].name + "<img src='" + products[i].image + "'></li>");
       }
     });
 
