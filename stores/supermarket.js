@@ -9,7 +9,7 @@ var extra = {
 var geocoder = require('node-geocoder').getGeocoder('opencage', 'http', extra);
 
 module.exports = {
-  get_locations: function(product, zip) {
+  get_locations: function(product, zip, callback) {
     http.get("http://www.SupermarketAPI.com/api.asmx/StoresByZip?APIKEY=c4be2f32e1&ZipCode=" + zip, function(res) {
       var storetextdata = "";
       res.on("data", function (chunk) {
@@ -55,7 +55,7 @@ module.exports = {
                     var tempProduct = {};
                     tempProduct.name = hurr;
                     tempProduct.lat = latitude;
-                    tempProduct.long = longitude;
+                    tempProduct.lng = longitude;
                     for (var j = 0; j < productData.length; j++) {
                       //console.log(productData[j].Itemname.toString());
                       var product = {};
@@ -66,11 +66,14 @@ module.exports = {
 
 
                       product.lat = latitude;
-                      product.long = longitude;
-                      console.log("product: "+ product.name + " stores: " + product.stores[0].name.toString() + " lat: " + product.stores[0].lat + " long: "+ product.stores[0].long);
+                      product.lng = longitude;
+                      console.log("product: "+ product.name + " stores: " + product.stores[0].name.toString() + " lat: " + product.stores[0].lat + " long: "+ product.stores[0].lng);
                       products.push(product);
                                   //console.log(products);
 
+                      if (i == result.length - 1 && j == productData.length - 1) {
+                        console.log("done");
+                      }
                     }
 
                   });
@@ -79,7 +82,6 @@ module.exports = {
               });
             })(i);
           }//for loop ends here
-
         });
       });
     });
