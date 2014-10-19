@@ -2,8 +2,8 @@ var app = require("../app.js");
 var http = require('http');
 var xml2js = require('xml2js');
 var extra = {
-            apiKey: '8aadd6c926121b06baee63e405982545',
-            formatter: null
+  apiKey: '8aadd6c926121b06baee63e405982545',
+  formatter: null
 };
 
 var geocoder = require('node-geocoder').getGeocoder('opencage', 'http', extra);
@@ -17,15 +17,10 @@ module.exports = {
       });
       res.on("end", function() {
         var products = [];
-
-        //XML parse
-        xml2js.parseString(storetextdata, function (err, result) {        
-          console.log(zip);
-          result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
+        xml2js.parseString(storetextdata, function (err, result) {
+          result = result.ArrayOfStore.Store;
           var storeList = result;
-          //console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
           if (result == undefined) {
-            console.log("SWAGGER");
             return;
           }
 
@@ -34,73 +29,47 @@ module.exports = {
               var hurr = storeList[i].Storename;
               var durr = storeList;
 
-              //console.log(i);
-              //console.dir(durr[i]);
-
               var address = '';
               address += durr[i].Address.toString() + " " + durr[i].City.toString() + " " + durr[i].State.toString() + " " + durr[i].Zip.toString();
               var place = i;
               geocoder.geocode(address, function(err, rezz) {
-                //console.log(address);              
                 var latitude = rezz[0].latitude;
                 var longitude = rezz[0].longitude;
-                console.log(latitude + " " + longitude);
 
+                http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
+                  var itemTextdata = "";
+                  itemRes.on("data", function (chunk) {
+                    itemTextdata += chunk;
+                  });
 
-              http.get("http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=c4be2f32e1&StoreId=" + result[i].StoreId + "&ItemName=" + product, function(itemRes) {
-                var itemTextdata = "";
-                itemRes.on("data", function (chunk) {
-                  itemTextdata += chunk;
-                });
+                  itemRes.on("end", function() {
+                    xml2js.parseString(itemTextdata, function (err, productData) {
+                      productData = productData.ArrayOfProduct.Product;
+                      var tempProduct = {};
+                      tempProduct.name = hurr;
+                      tempProduct.lat = latitude;
+                      tempProduct.lng = longitude;
+                      for (var j = 0; j < productData.length; j++) {
+                        var product = {};
+                        product.name = productData[j].Itemname;
+                        product.stores = [];
+                        product.stores.push(tempProduct);
+                        product.lat = latitude;
+                        product.lng = longitude;
+                        products.push(product);
 
-
-                itemRes.on("end", function() {
-                  xml2js.parseString(itemTextdata, function (err, productData) {
-                    productData = productData.ArrayOfProduct.Product;
-                    var tempProduct = {};
-                    tempProduct.name = hurr;
-                    tempProduct.lat = latitude;
-                    tempProduct.lng = longitude;
-                    for (var j = 0; j < productData.length; j++) {
-                      //console.log(productData[j].Itemname.toString());
-                      var product = {};
-                      product.name = productData[j].Itemname;
-                      product.stores = [];
-                      product.stores.push(tempProduct);
-
-
-
-                      product.lat = latitude;
-                      product.lng = longitude;
-                      console.log("product: "+ product.name + " stores: " + product.stores[0].name.toString() + " lat: " + product.stores[0].lat + " long: "+ product.stores[0].lng);
-                      products.push(product);
-                                  //console.log(products);
-
-                      if (i == result.length - 1 && j == productData.length - 1) {
-                        console.log("swag");
-                        callback(products);
-                      } else {
-                        console.log(i + ', ' + j);
+                        if (i == result.length - 1 && j == productData.length - 1) {
+                          callback(products);
+                        }
                       }
-                    }
-
+                    });
                   });
                 });
-              }); //http.get items ends here
               });
             })(i);
-          }//for loop ends here
+          }
         });
       });
     });
   }
 };
-
-
-
-
-//What it does
-//  look at all stores in a zip code:                                         
-//  for each and every single store search for the item
-
-//totally superfast
