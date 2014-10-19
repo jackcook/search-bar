@@ -36,15 +36,12 @@ io.on('connection', function(socket) {
       var product = allproducts[i];
       if (String(product.name) == String(name)) {
         io.emit('stores', product.stores);
-        for (var k = 0; k < product.stores.length; k++) {
-          //console.log('lat: ' + product.stores[k].lat + ', lng: ' + product.stores[k].lng);
-        }
         break;
       }
     }
   });
 });
 
-http.listen(3000, function() {
+http.listen(80, function() {
   console.log("listening on *:80");
 });
