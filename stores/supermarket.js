@@ -1,5 +1,7 @@
 var app = require("../app.js");
 var http = require('http');
+var xml2js = require('xml2js');
+
 
 module.exports = {
   get_locations: function(product, zip) {
@@ -11,17 +13,13 @@ module.exports = {
       });
       res.on("end", function() {
         //XML parse
-        var parseString = require('xml2js');
-  var xml = "<root>Hello xml2js!</root>"
-  parseString(xml, function (err, result) {
-  console.dir(result);
+        var xml = "<root>Hello xml2js!</root>"
+        xml2js.parseString(xml, function (err, result) {
+          console.dir(result);
+        });
       });
     });
   }
-
-  
-});
-
 };
 
 
