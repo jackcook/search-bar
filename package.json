@@ -1,7 +1,7 @@
 {
   "name": "search-bar",
   "version": "0.0.1",
-  "description": "a search bar for real life",
+  "description": "find what you're looking to buy",
   "dependencies": {
     "express": "~4.9.8"
   }

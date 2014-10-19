@@ -16,7 +16,6 @@ app.get("/search.html", function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  allproducts = [];
   socket.on('search', function(q, zip) {
     var stores = fs.readdirSync('stores');
     for (var i = 0; i < stores.length; i++) {
@@ -27,10 +26,6 @@ io.on('connection', function(socket) {
     }
   });
 });
-
-function all_products() {
-  return allproducts;
-}
 
 http.listen(3000, function() {
   console.log("listening on *:3000");

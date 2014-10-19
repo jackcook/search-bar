@@ -61,7 +61,7 @@ module.exports = {
                         var contains = false;
                         for (var k = 0; k < products.length; k++) {
                           var prod = products[k];
-                          if (prod.name == product.name) {
+                          if (String(prod.name) == String(product.name)) {
                             contains = true;
                           }
                         }
