@@ -20,11 +20,12 @@ module.exports = {
 
         //XML parse
         xml2js.parseString(storetextdata, function (err, result) {        
-          //console.log(result);
+          console.log(zip);
           result = result.ArrayOfStore.Store;//result.ArrayOfStore.Store[0];
           var storeList = result;
           //console.log("\n\n\nSTORE[0] ID SWAGGER ===================================================================");
           if (result == undefined) {
+            console.log("SWAGGER");
             return;
           }
 
@@ -76,7 +77,10 @@ module.exports = {
                                   //console.log(products);
 
                       if (i == result.length - 1 && j == productData.length - 1) {
-                        console.log("done");
+                        console.log("swag");
+                        callback(products);
+                      } else {
+                        console.log(i + ', ' + j);
                       }
                     }
 
@@ -95,8 +99,8 @@ module.exports = {
 
 
 
-//TODO
-//  look at all stores in a zip code:                                         http://www.SupermarketAPI.com/api.asmx/StoresByZip?APIKEY=APIKEY&ZipCode=95130
+//What it does
+//  look at all stores in a zip code:                                         
 //  for each and every single store search for the item
 
 //totally superfast
