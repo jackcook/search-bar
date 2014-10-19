@@ -31,6 +31,7 @@ io.on('connection', function(socket) {
       });
     }
   });
+  io.emit('stores', []);
   socket.on('product', function(name) {
     for (var i = 0; i < allproducts.length; i++) {
       var product = allproducts[i];
@@ -42,6 +43,6 @@ io.on('connection', function(socket) {
   });
 });
 
-http.listen(80, function() {
+http.listen(3000, function() {
   console.log("listening on *:80");
 });
