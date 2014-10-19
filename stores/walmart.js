@@ -7,6 +7,32 @@ module.exports = {
       res.on("data", function(chunk) {
         nametextdata += chunk;
       });
+      res.on("end", function() {
+        var namedata = JSON.parse(nametextdata);
+        var products = [];
+        var received = 0;
+        for (var i = 0; i < 10; i++) {
+          (function(i) {
+            var iid = namedata.items[i].itemId;
+            console.log("walmart" + iid);
+            var key = i < 4 ? "rr6nyujv7h4y5wvgr5abfcyx" : "xxx";
+            http.get("http://api.walmartlabs.com/v1/items/" + iid + "?apiKey=" + key, function(res) {
+              var producttextdata = "";
+              res.on("data", function(chunk) {
+                producttextdata += chunk;
+              });
+              res.on("end", function() {
+
+              });
+              /*res.on("end", function() {
+                var productdata = JSON.parse(producttextdata);
+                var product = {};
+                product.name = productdata.products[0]
+              });*/
+            });
+          })(i);
+        }
+      });
     });
   }
 }

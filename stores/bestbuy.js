@@ -31,7 +31,6 @@ module.exports = {
                   product.stores.push(store);
                 }
                 products.push(product);
-                //console.log("product " + i);
                 received += 1;
                 if (received == 10) {
                   callback(products);
