@@ -1,15 +1,34 @@
+var app = require("../app.js");
 var http = require('http');
 
 module.exports = {
   get_locations: function(product, zip) {
-        http.get("http://www.google.com/index.html", function(res) {
-          console.log("Got swagger response: " + res.statusCode);
-        }).on('error', function(e) {
-          console.log("Got error: " + e.message);
-        });
-    return ['10028 swagger', product]; //return array of arrays of coordinates
+    http.get("http://www.SupermarketAPI.com/api.asmx/StoresByZip?APIKEY=c4be2f32e1&ZipCode=" + zip, function(res) {
+      var storetextdata = "";
+      res.on("data", function (chunk) {
+        storetextdata += chunk;
+        console.log(storetextdata);
+      });
+      res.on("end", function() {
+        //XML parse
+        var parseString = require('xml2js');
+  var xml = "<root>Hello xml2js!</root>"
+  parseString(xml, function (err, result) {
+  console.dir(result);
+      });
+    });
   }
+
+  
+});
+
 };
+
+
+
+
+
+
 
 
 
@@ -20,5 +39,7 @@ var store = {
 };
 
 //TODO
-//  search items
-//  show stores
+//  look at all stores in a zip code:                                         http://www.SupermarketAPI.com/api.asmx/StoresByZip?APIKEY=APIKEY&ZipCode=95130
+//  for each and every single store search for the item
+
+//totally superfast
