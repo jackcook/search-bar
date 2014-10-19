@@ -9,12 +9,13 @@ module.exports = {
       var storetextdata = "";
       res.on("data", function (chunk) {
         storetextdata += chunk;
+        console.log("RAW SWAGGER STRING ====================================================================");
         console.log(storetextdata);
       });
       res.on("end", function() {
         //XML parse
-        var xml = "<root>Hello xml2js!</root>"
-        xml2js.parseString(xml, function (err, result) {
+        xml2js.parseString(storetextdata, function (err, result) {
+          console.log("\n\n\nJS OBJECT SWAGGER ===================================================================");
           console.dir(result);
         });
       });
