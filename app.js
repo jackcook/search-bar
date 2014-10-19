@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
     var stores = fs.readdirSync('stores');
     for (var i = 0; i < stores.length; i++) {
       var store = require(path.join(__dirname, 'stores', stores[i]));
-      if (stores[i].indexOf('bestbuy.js') > -1) {
+      //if (stores[i].indexOf('bestbuy.js') > -1) {
         store.get_locations(q, parseInt(zip), function(products) {
           for (var j = 0; j < products.length; j++) {
             allproducts.push(products[j]);
@@ -33,7 +33,7 @@ io.on('connection', function(socket) {
             }
           }
         });
-      }
+      //}
     }
   });
 });
