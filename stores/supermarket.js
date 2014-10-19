@@ -35,7 +35,7 @@ module.exports = {
             //console.log(address);
 
             geocoder.geocode(address, function(err, res) {
-            console.log(res);
+            console.log(res[0]);
             });
 
 
