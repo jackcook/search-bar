@@ -32,7 +32,16 @@
     var q = getUrlVars()["q"];
     var zip = getUrlVars()["zip"];
 
+    var lat = 0.0;
+    var lng = 0.0;
+
     socket.emit("search", q, zip);
+    socket.emit("geocode", zip);
+
+    socket.on('location', function(la, ln) {
+      lat = la;
+      lng = ln;
+    });
 
     socket.on('results', function(products) {
       for (var i = 0; i < products.length; i++) {
@@ -44,7 +53,7 @@
     socket.on('stores', function(stores) {
       function initialize() {
         var mapOptions = {
-          center: { lat: stores[0].lat, lng: stores[0].lng },
+          center: { lat: lat, lng: lng },
           zoom: 16
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);

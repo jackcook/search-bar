@@ -18,6 +18,14 @@ app.get("/search.html", function(req, res) {
 });
 
 io.on('connection', function(socket) {
+  socket.on('geocode', function(zip) {
+    var Geocoder = require('node-geocoder-ca').Geocoder;
+    var geocoder = new Geocoder();
+
+    geocoder.geocode(String(zip), function(err, coords) {
+      io.emit('location', coords.latitude, coords.longitude);
+    });
+  });
   socket.on('search', function(q, zip) {
     var stores = fs.readdirSync('stores');
     for (var i = 0; i < stores.length; i++) {
