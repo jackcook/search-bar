@@ -1,4 +1,5 @@
 var http = require("http");
+var phantom = require("phantom");
 
 module.exports = {
   get_locations: function(product, zip, callback) {
@@ -14,7 +15,6 @@ module.exports = {
         for (var i = 0; i < 10; i++) {
           (function(i) {
             var iid = namedata.items[i].itemId;
-            //console.log("walmart" + iid);
             var key = i < 4 ? "rr6nyujv7h4y5wvgr5abfcyx" : "xxx";
             http.get("http://api.walmartlabs.com/v1/items/" + iid + "?apiKey=" + key, function(res) {
               var producttextdata = "";
@@ -28,15 +28,14 @@ module.exports = {
                     pagetextdata += chunk;
                   });
                   res.on("end", function() {
-                    //console.log(pagetextdata);
+                    var page = require("webpage").create();
+                    page.open("http://www.walmart.com/ip/" + iid, function() {
+                      page.render('example.png');
+                      phantom.exit();
+                    });
                   });
                 });
               });
-              /*res.on("end", function() {
-                var productdata = JSON.parse(producttextdata);
-                var product = {};
-                product.name = productdata.products[0]
-              });*/
             });
           })(i);
         }
