@@ -1,4 +1,4 @@
-[![Image not found](devchuk.github.io/res/img/portimg/seekbar/home.PNG)](jackcook.github.io/seekbar)
+[![Image not found](http://devchuk.github.io/res/img/portimg/seekbar/home.PNG)](http://jackcook.github.io/seekbar)
 
 
 A couple weeks ago a friend and I decided to make sushi and had to head out to buy the ingredients. We were able to buy all the ingredients we needed except for one ingredient: seaweed. It turns out that the first supermarket we visited didn't sell seaweed and the store after that, Trader Joe's, ran out of stock for seaweed. It took us 4 supermarkets until we were able to find seaweed!
